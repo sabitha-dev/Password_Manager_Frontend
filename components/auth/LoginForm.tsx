@@ -27,17 +27,23 @@ export default function LoginForm() {
     setLoading(true);
 
     const res = await api.post("/login", { email, password });
-
+const token = res.data.data;
     dispatch(
       loginSuccess({
-        token: res.data.token,
+        token:token,
         userEmail: email,
       })
     );
+  
 
     dispatch(showToast({ message: "Login successful!", type: "success" }));
 
-    router.push("/dashboard");
+
+
+router.replace("/dashboard");
+// window.location.href = "/dashboard";
+console.log("after push");
+
   } catch (err: any) {
     dispatch(
       showToast({
@@ -51,7 +57,9 @@ export default function LoginForm() {
 };
 
   return (
+
     <div className="w-full max-w-md">
+ 
       <div className="bg-white/80 backdrop-blur-xl shadow-xl rounded-3xl border border-gray-200 p-10">
         <div className="text-center mb-8">
           <h1 className="text-3xl font-bold text-indigo-700">Welcome Back</h1>

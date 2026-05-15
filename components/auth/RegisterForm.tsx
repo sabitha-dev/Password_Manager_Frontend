@@ -24,25 +24,34 @@ const handleRegister = async (e: React.FormEvent) => {
   try {
     setLoading(true);
 
-    await api.post("/register", {
+    const res=await api.post("/register", {
       name,
       email,
       password,
     });
-
+console.log(res,"Res")
     dispatch(
       showToast({ message: "Registration successful!", type: "success" })
     );
 
     setTimeout(() => router.push("/login"), 1000);
   } catch (err: any) {
-    dispatch(
-      showToast({
-        message: err?.response?.data?.message || "Registration failed",
-        type: "error",
-      })
-    );
-  } finally {
+  console.log(err?.response?.data, "Err");
+
+  const backendData = err?.response?.data;
+
+  const errorMessage =
+    backendData?.data?.password ||  
+    backendData?.message ||         
+    "Registration failed";
+
+  dispatch(
+    showToast({
+      message: errorMessage,
+      type: "error",
+    })
+  );
+} finally {
     setLoading(false);
   }
 };
