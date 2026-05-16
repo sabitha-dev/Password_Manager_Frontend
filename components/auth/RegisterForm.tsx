@@ -29,14 +29,12 @@ const handleRegister = async (e: React.FormEvent) => {
       email,
       password,
     });
-console.log(res,"Res")
     dispatch(
       showToast({ message: "Registration successful!", type: "success" })
     );
 
     setTimeout(() => router.push("/login"), 1000);
   } catch (err: any) {
-  console.log(err?.response?.data, "Err");
 
   const backendData = err?.response?.data;
 

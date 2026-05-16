@@ -28,6 +28,7 @@ export default function LoginForm() {
 
     const res = await api.post("/login", { email, password });
 const token = res.data.data;
+
     dispatch(
       loginSuccess({
         token:token,
@@ -41,8 +42,6 @@ const token = res.data.data;
 
 
 router.replace("/dashboard");
-// window.location.href = "/dashboard";
-console.log("after push");
 
   } catch (err: any) {
     dispatch(
