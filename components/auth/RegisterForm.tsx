@@ -17,6 +17,7 @@ export default function RegisterForm() {
   const [password, setPassword] = useState("");
 
   const [loading, setLoading] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
 const dispatch = useDispatch();
 const handleRegister = async (e: React.FormEvent) => {
   e.preventDefault();
@@ -24,36 +25,45 @@ const handleRegister = async (e: React.FormEvent) => {
   try {
     setLoading(true);
 
-    const res=await api.post("/register", {
+    const res = await api.post("/register", {
       name,
       email,
       password,
     });
+
+    const responseData = res.data;
+
+    if (responseData?.message === "User created successfully!") {
+      dispatch(
+        showToast({
+          message: responseData.message,
+          type: "success",
+        })
+      );
+
+      setTimeout(() => {
+        router.push("/login");
+      }, 1000);
+
+      return;
+    }
+console.log(responseData,res);
+
     dispatch(
-      showToast({ message: "Registration successful!", type: "success" })
+      showToast({
+        message: responseData?.message || "Registration failed",
+        type: "error",
+      })
     );
 
-    setTimeout(() => router.push("/login"), 1000);
-  } catch (err: any) {
-
-  const backendData = err?.response?.data;
-
-  const errorMessage =
-    backendData?.data?.password ||  
-    backendData?.message ||         
-    "Registration failed";
-
-  dispatch(
-    showToast({
-      message: errorMessage,
-      type: "error",
-    })
-  );
-} finally {
-    setLoading(false);
-  }
+  } catch (err: any)
+   { 
+    const backendData = err?.response?.data; const errorMessage = backendData?.data?.password || backendData?.message || "Registration failed";
+     dispatch( showToast({ message: errorMessage, type: "error", }) );
+     } 
+     finally { setLoading(false); }
+    
 };
-
   return (
     <div className="w-full max-w-md">
       <div className="bg-white/80 backdrop-blur-xl shadow-xl rounded-3xl border border-gray-200 p-10">
@@ -85,15 +95,23 @@ const handleRegister = async (e: React.FormEvent) => {
             placeholder="Enter a email"
 
           />
+<div className="relative">
+  <Input
+    label="Password"
+    type={showPassword ? "text" : "password"}
+    value={password}
+    onChange={(e) => setPassword(e.target.value)}
+    placeholder="Enter a password"
+  />
 
-          <Input
-            label="Password"
-            type="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            placeholder="Enter a password"
-
-          />
+  <button
+    type="button"
+    onClick={() => setShowPassword(!showPassword)}
+    className="absolute right-3 top-10 text-gray-500"
+  >
+    {showPassword ? "🙈" : "👁️"}
+  </button>
+</div>
 
           <Button text={loading ? "Registering..." : "Register"} type="submit" />
          <div className="pt-2">
