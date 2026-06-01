@@ -27,19 +27,33 @@ export default function LoginForm() {
       setLoading(true);
 
       const res = await api.post("/login", { email, password });
-      const token = res.data.data;
-console.log(token,res,"res");
+     if (!res.data.data) {
+  dispatch(
+    showToast({
+      message: res.data?.message || "Login failed",
+      type: "error",
+    })
+  );
+  return;
+}
 
-      dispatch(
-        loginSuccess({
-          token: token,
-          userEmail: email,
-        }),
-      );
+const token = res.data.data;
 
-      dispatch(showToast({ message: "Login successful!", type: "success" }));
+   dispatch(
+  loginSuccess({
+    token,
+    userEmail: email,
+  })
+);
 
-      router.replace("/dashboard");
+dispatch(
+  showToast({
+    message: "Login successful!",
+    type: "success",
+  })
+);
+
+router.replace("/dashboard");
     } catch (err: any) {
       dispatch(
         showToast({
