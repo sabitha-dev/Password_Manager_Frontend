@@ -120,9 +120,9 @@ export default function VaultDetailsPage() {
   return (
     <ProtectedRoute>
       <DashboardLayout>
-        <div className="bg-white/70 backdrop-blur-xl p-10 rounded-3xl border border-gray-200 shadow-xl space-y-6 max-w-3xl mx-auto">
+       <div className="bg-white/70 backdrop-blur-xl p-5 sm:p-8 lg:p-10 rounded-3xl border border-gray-200 shadow-xl space-y-6 max-w-3xl mx-auto">
           <div>
-            <h1 className="text-3xl font-bold text-indigo-700">
+   <h1 className="text-2xl sm:text-3xl font-bold text-indigo-700 break-words"> 
               {isEditing ? "Edit Vault" : data.appName}
             </h1>
             <p className="text-gray-500 text-sm mt-1">
@@ -168,7 +168,7 @@ export default function VaultDetailsPage() {
           <div className="p-5 rounded-2xl bg-blue-50 border border-blue-100 space-y-3">
             <p className="text-sm text-blue-700 font-semibold">Password</p>
 
-            <div className="flex items-center gap-2">
+         <div className="flex flex-wrap sm:flex-nowrap items-center gap-2">
               {isEditing ? (
                 <input
                   type={showPassword ? "text" : "password"}
@@ -216,7 +216,7 @@ export default function VaultDetailsPage() {
 
           {/* Buttons */}
           {isEditing ? (
-            <div className="flex gap-4">
+          <div className="flex flex-col sm:flex-row gap-4">
               <button
                 onClick={handleSave}
                 disabled={updateMutation.isPending}
@@ -233,7 +233,7 @@ export default function VaultDetailsPage() {
               </button>
             </div>
           ) : (
-            <div className="flex gap-4">
+            <div className="flex flex-col sm:flex-row gap-4">
               <button
                 onClick={() => setIsEditing(true)}
                 className="flex-1 p-3 rounded-2xl bg-indigo-600 text-white hover:bg-indigo-700 transition font-semibold shadow-md"

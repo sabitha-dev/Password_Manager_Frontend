@@ -45,9 +45,9 @@ const dispatch = useDispatch();
     <ProtectedRoute>
       <DashboardLayout>
 
-        <div className="max-w-3xl mx-auto bg-white/70 backdrop-blur-xl p-10 rounded-3xl border border-gray-200 shadow-xl space-y-6">
+      <div className="max-w-3xl mx-auto bg-white/70 backdrop-blur-xl p-5 sm:p-8 lg:p-10 rounded-3xl border border-gray-200 shadow-xl space-y-6">
           <div>
-            <h1 className="text-3xl font-bold text-indigo-700">
+<h1 className="text-2xl sm:text-3xl font-bold text-indigo-700">       
               Add New Password
             </h1>
             <p className="text-gray-500 text-sm mt-2">

@@ -24,10 +24,10 @@ export default function VaultListPage() {
   return (
     <ProtectedRoute>
       <DashboardLayout>
-        <div className="bg-white/70 backdrop-blur-xl p-8 rounded-3xl border border-gray-200 shadow-xl">
-          <div className="flex justify-between items-center mb-6">
+       <div className="bg-white/70 backdrop-blur-xl p-4 sm:p-6 lg:p-8 rounded-3xl border border-gray-200 shadow-xl">
+<div className="flex flex-col sm:flex-row gap-4 sm:justify-between sm:items-center mb-6">
             <div>
-              <h1 className="text-3xl font-bold text-indigo-700">Vault</h1>
+              <h1 className="text-2xl sm:text-3xl font-bold text-indigo-700">Vault</h1>
               <p className="text-gray-500 text-sm mt-1">
                 Search and manage your saved passwords
               </p>
@@ -35,7 +35,7 @@ export default function VaultListPage() {
 
             <button
               onClick={() => router.push("/dashboard/vault/add")}
-              className="px-6 py-3 rounded-2xl bg-indigo-600 text-white hover:bg-indigo-700 transition font-semibold shadow-md"
+            className="w-full sm:w-auto px-6 py-3 rounded-2xl bg-indigo-600 text-white hover:bg-indigo-700 transition font-semibold shadow-md"
             >
               + Add New
             </button>
